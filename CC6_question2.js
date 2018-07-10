@@ -6,8 +6,9 @@
 const arrOfNums = [1, 4, 6, 43, 8, 5, 7, 3, 11, 9, 6, 13];
 let target = 12;
 
-// ==== Answer ====
-const findSum = (arr, target) => {
+// ==== Answer 1 ====
+// function finding first two different numbers which added together give the target number
+const findFirstSum = (arr, target) => {
   let result;
   // check if any element of array passes the test
   arr.some((element, index, arr) => {
@@ -23,4 +24,19 @@ const findSum = (arr, target) => {
     }
   });
   return result;
+};
+
+// ==== Answer 2 ====
+// function finding all pairs of two different numbers which added together give the target number
+const findAllSums = (arr, target) => {
+  let results = [];
+  // try to find complementary number for each element in the array
+  arr.forEach((element, index, arr) => {
+    for (let i = index + 1; i < arr.length; i++) {
+      if (target === element + arr[i] && element !== arr[i]) {
+        results.push([element, arr[i]]);
+      }
+    }
+  });
+  return results;
 };
