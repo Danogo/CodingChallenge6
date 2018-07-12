@@ -26,7 +26,7 @@ const convertColors = color => {
 
   // callback function converting rgb strings to numbers and then converting numbers to corresponding hexadecimal value strings
   // if number needs only four last bits, add 0 at the beginning to maintain same formatting (#000000)
-    const mapToHex = stringNum => Number(stringNum).toString(16).length === 2 ? Number(stringNum).toString(16) : `0${Number(stringNum).toString(16)}`;
+  const mapToHex = stringNum => Number(stringNum).toString(16).length === 2 ? Number(stringNum).toString(16) : `0${Number(stringNum).toString(16)}`;
 
   // function converting RGB color to HEX color
   const convRgbToHex = colRgb => {
@@ -40,7 +40,15 @@ const convertColors = color => {
     return `#${hexString}`;
   };
 
-  return convHexToRgb(color);
+  // function detecting format of argument and running proper converter
+  const detectAndConvert = arg => {
+    if (/(rgb\()?(\s*\d{1,3}\s*),(\s*\d{1,3}\s*),(\s*\d{1,3}\s*[^a-z])\)?/.test(arg)) {
+      return convRgbToHex(arg);
+    } else if (/#?\w{6}/.test(arg)) {
+      return convHexToRgb(arg);
+    }
+  };
 
+  return detectAndConvert(color);
 };
 
