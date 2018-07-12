@@ -5,7 +5,7 @@
 
 // ==== Answer ====
 const convertColors = color => {
-  // function converting HEX values to decimal values
+  // callback function converting HEX values to decimal values
   const repToRgb = charHex => {
     let charInt = parseInt(charHex, 16);
     // add proper rgb-like formatting and return this value
@@ -24,13 +24,16 @@ const convertColors = color => {
     return `rgb(${colRgb})`;
   };
 
+  // callback function converting rgb strings to numbers and then converting numbers to corresponding hexadecimal value strings
+  // if number needs only four last bits, add 0 at the beginning to maintain same formatting (#000000)
+    const mapToHex = stringNum => Number(stringNum).toString(16).length === 2 ? Number(stringNum).toString(16) : `0${Number(stringNum).toString(16)}`;
+
   // function converting RGB color to HEX color
   const convRgbToHex = colRgb => {
     // find all numbers consisted of 1, 2 or 3 digits and put them in array
     let rgbStrings =  colRgb.match(/\d{1,3}/g);
-    // map through all rgb Strings, convert them to numbers and then convert them to corresponding hexadecimal values strings
-    // if number needs only four last bits, add 0 to the beginning to maintaint proper format (#000000)
-    let hexStrings = rgbStrings.map( stringNum => Number(stringNum).toString(16).length === 2 ? Number(stringNum).toString(16) : `0${Number(stringNum).toString(16)}`);
+    // map through all RGB color strings and convert them to HEX color strings
+    let hexStrings = rgbStrings.map(mapToHex);
     // join all elements of an array to make one concise string.
     hexString = hexStrings.join('');
     // add # at the beginning and return HEX color string
