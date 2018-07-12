@@ -23,5 +23,21 @@ const convertColors = color => {
     // returning string with proper formatting
     return `rgb(${colRgb})`;
   };
+
+  // function converting RGB color to HEX color
+  const convRgbToHex = colRgb => {
+    // find all numbers consisted of 1, 2 or 3 digits and put them in array
+    let rgbStrings =  colRgb.match(/\d{1,3}/g);
+    // map through all rgb Strings, convert them to numbers and then convert them to corresponding hexadecimal values strings
+    // if number needs only four last bits, add 0 to the beginning to maintaint proper format (#000000)
+    let hexStrings = rgbStrings.map( stringNum => Number(stringNum).toString(16).length === 2 ? Number(stringNum).toString(16) : `0${Number(stringNum).toString(16)}`);
+    // join all elements of an array to make one concise string.
+    hexString = hexStrings.join('');
+    // add # at the beginning and return HEX color string
+    return `#${hexString}`;
+  };
+
   return convHexToRgb(color);
+
 };
+
